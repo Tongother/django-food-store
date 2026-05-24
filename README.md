@@ -83,7 +83,7 @@ python manage.py tailwind runserver
 
 | # | Flaw | Location | Fix |
 |---|---|---|---|
-| A01 | Broken Access Control (IDOR) | [Receipt view](/products/views.py#143) | [Fix Receipt view](/products/views.py#L148) |
+| A01 | Broken Access Control (IDOR) | [Receipt view](/products/views.py#L143) | [Fix Receipt view](/products/views.py#L148) |
 | A02 | Cryptographic Failures | [User creation](/users/views.py#L133) | [Fix User creation](/users/views.py#L140) |
 | A03 | SQL Injection | [Search bar](/products/views.py#L14) | [Fix Search bar](/products/views.py#L20) |
 | A03 | Stored XSS | [Hijacking](/products/views.py#L125) | [Hijacking](/products/views.py#L131) |
