@@ -30,6 +30,8 @@ def add_to_cart_view(request, product_id):
         # FLAW A04 (INSECURE DESIGN):
         # The application allows users to specify the quantity of a product to add to their cart without any validation,
         # which can lead to issues such as negative quantities or excessively large numbers.
+        # Please, comment the all code related to the validation of the quantity input and 
+        # uncomment the code that allows any quantity, including negative and excessively large numbers.
 
         quantity = int(request.POST.get('quantity', 1))
         
@@ -62,13 +64,13 @@ def add_to_cart_view(request, product_id):
         # try:
         #     quantity = int(request.POST.get('quantity', 1))
         # except (ValueError, TypeError):
-        #     return redirect('home')  # rechaza floats, strings, None
+        #     return redirect('home')
 
         # if quantity < 1:
-        #     return redirect('home')  # reject negative quantities and zero
+        #     return redirect('home')
 
         # if quantity > 50:
-        #     return redirect('home')  # reject excessively large quantities
+        #     return redirect('home')
 
         # order, created = Order.objects.get_or_create(
         #     user=request.user,

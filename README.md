@@ -1,89 +1,99 @@
 # Welcome to django food store!
- 
+
 This is a university project designed to explore and understand the most critical security risks in web applications.
- 
+
 django food store is a restaurant e-commerce demo that provides a safe environment to learn about web security vulnerabilities and how to mitigate them using the Django framework. By understanding the underlying logic demonstrated here, you will be able to apply the same security principles to any other framework of your choice.
- 
+
 This project is based on the [OWASP Top 10 (2021)](https://owasp.org/Top10/2021/) and focuses on demonstrating **5 of the 10 critical risks** listed below.
- 
+
 > ⚠️ **Warning:** This project is intentionally vulnerable. Do **not** deploy it in a production environment or expose it to the public internet.
- 
+
 ---
- 
+
 ## Prerequisites
- 
+
 To run django food store, you will need to have installed:
- 
+
 - Python (latest version recommended)
 - Pip
 ### Create the virtual environment
- 
+
 ```bash
 python -m venv .venv
 ```
- 
+
 Activate the virtual environment:
- 
+
 - On Windows:
 ```bash
 .venv\Scripts\activate
 ```
- 
+
 - On macOS/Linux:
 ```bash
 source .venv/bin/activate
 ```
- 
+
 ### Install dependencies
- 
+
 Once the virtual environment is active, install all dependencies listed in `requirements.txt`:
- 
+
 ```bash
 pip install -r requirements.txt
 ```
- 
+
 ### Configure the database
- 
+
 Run the following commands sequentially to set up and populate the database with default data:
- 
+
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata default_products.json
 ```
- 
+
 ### Create a superuser
- 
+
 For practical purposes, create a superuser with the following credentials:
- 
+
 ```bash
 python manage.py createsuperuser
 ```
- 
+
 Recommended credentials (for local development only):
- 
+
 - **Username:** admin
 - **Email:** admin@admin.com
 - **Password:** admin123
 > ⚠️ These credentials are **only for local development**. Never use them in any other environment.
- 
+
 ---
- 
+
 ## Run the server
- 
+
 Since this application uses `django-tailwind-cli` to handle Tailwind CSS styling, the app needs to compile the necessary configurations before serving templates. Start the server with:
- 
+
 ```bash
 python manage.py tailwind runserver
 ```
- 
+
 ---
- 
+
 ## OWASP Top 10:2021
- 
+
+| # | Flaw | Location | Fix |
+|---|---|---|---|
+| A01 | Broken Access Control (IDOR) | [Receipt view](/products/views.py#143) | [Fix Receipt view](/products/views.py#L148) |
+| A02 | Cryptographic Failures | [User creation](/users/views.py#L133) | [Fix User creation](/users/views.py#L140) |
+| A03 | SQL Injection | [Search bar](/products/views.py#L14) | [Fix Search bar](/products/views.py#L20) |
+| A03 | Stored XSS | [Hijacking](/products/views.py#L125) | [Hijacking](/products/views.py#L131) |
+| A04 | Insecure Design | [Unauthorized discount](products/views.py#L30) | [Fix Unauthorized discount](/products/views.py#L58) |
+| A05 | Security Misconfiguration | [Settings](/django_store/settings.py#L40) | [Fix settings](/django_store/settings.py#L45) |
+
 ### A01 — Broken Access Control
- 
-**Where to find it:** `...` 
+
+**Where to find it:** `...`
+
 **What it does:**
 The first vulnerability we have is A01:2021 – Broken Access Control. This vulnerability is based on a user with limited privileges accessing information that, in theory, should not be available to them due to their role limitations. 
 
@@ -168,9 +178,9 @@ To demonstrate this vulnerability, we present a scenario where a user attempts t
 
 **How to mitigate it:**
 The remediation for this issue lies strictly following the production deployment guidelines of the framework in use. In the case of Django, it is imperative to set the DEBUG = False directive within the settings.py file. This measure disables the debugging mode, hiding error traces and preventing information leakage, which, while indispensable during the development cycle, poses an unacceptable risk in production. 
- 
+
 ---
- 
+
 ## License
- 
+
 This project is licensed under the [MIT License](LICENSE).
