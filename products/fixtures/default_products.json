@@ -1,0 +1,68 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Tacos al Pastor",
+      "price": "6.50",
+      "image_url": "http://127.0.0.1:8000/static/tacos_de_pastor.png",
+      "description": "Marinated pork on a vertical spit, served with pineapple, cilantro, onion and salsa on soft corn tortillas.",
+      "created_at": "2026-05-20T14:00:00Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Tamales Oaxaqueños",
+      "price": "4.50",
+      "image_url": "http://127.0.0.1:8000/static/tamales.png",
+      "description": "Steamed masa dough filled with mole negro and chicken, wrapped in banana leaves. A festive Mexican staple.",
+      "created_at": "2026-05-20T14:05:00Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Chiles en Nogada",
+      "price": "14.00",
+      "image_url": "http://127.0.0.1:8000/static/chiles_en_nogada.png",
+      "description": "Poblano chiles stuffed with a savory-sweet picadillo, topped with walnut cream sauce, pomegranate seeds and parsley.",
+      "created_at": "2026-05-20T14:10:00Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Tlayuda con Tasajo",
+      "price": "10.00",
+      "image_url": "http://127.0.0.1:8000/static/tlayuda_con_tasajo.png",
+      "description": "Large crispy tortilla from Oaxaca spread with black beans, asiento, Oaxacan cheese and dried beef strips.",
+      "created_at": "2026-05-20T14:15:00Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Pozole Rojo",
+      "price": "9.50",
+      "image_url": "http://127.0.0.1:8000/static/pozole_rojo.png",
+      "description": "Hearty hominy soup in a rich red chile broth with pork, topped with shredded cabbage, radish, oregano and lime.",
+      "created_at": "2026-05-20T14:20:00Z"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Enchiladas Verdes",
+      "price": "8.00",
+      "image_url": "http://127.0.0.1:8000/static/enchiladas_verdes.png",
+      "description": "Corn tortillas filled with chicken and bathed in a tangy tomatillo salsa verde, topped with crema and fresh cheese.",
+      "created_at": "2026-05-20T14:25:00Z"
+    }
+  }
+]

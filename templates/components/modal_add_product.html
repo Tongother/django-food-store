@@ -1,0 +1,46 @@
+<div id="modal-add" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+
+    <button onclick="document.getElementById('modal-add').classList.add('hidden')"
+            class="absolute top-4 right-4 text-stone-400 hover:text-stone-600 transition">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <h2 class="text-stone-900 text-2xl mb-6">New Product</h2>
+
+    <form method="POST" action="{% url 'add_product' %}" class="space-y-4">
+      {% csrf_token %}
+
+      <div>
+        <label class="block text-stone-600 text-sm font-medium mb-1">Name <span class="text-amber-500">*</span></label>
+        <input type="text" name="name" placeholder="Product name" required
+               class="w-full bg-stone-100 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"/>
+      </div>
+
+      <div>
+        <label class="block text-stone-600 text-sm font-medium mb-1">Price <span class="text-amber-500">*</span></label>
+        <input type="number" name="price" placeholder="0.00" step="0.01" min="0" required
+               class="w-full bg-stone-100 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"/>
+      </div>
+
+      <div>
+        <label class="block text-stone-600 text-sm font-medium mb-1">Image URL</label>
+        <input type="url" name="image_url" placeholder="https://..."
+               class="w-full bg-stone-100 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"/>
+      </div>
+
+      <div>
+        <label class="block text-stone-600 text-sm font-medium mb-1">Description</label>
+        <textarea name="description" rows="3" placeholder="Optional description..."
+                  class="w-full bg-stone-100 border border-stone-200 rounded-xl px-4 py-3 text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition resize-none"></textarea>
+      </div>
+
+      <button type="submit"
+              class="w-full bg-stone-900 hover:bg-amber-500 text-white font-semibold py-3 rounded-xl transition mt-2">
+        Save Product
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div id="cart-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 relative">
+
+    <button onclick="closeModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-600 transition">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <div class="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center mb-5">
+      <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+      </svg>
+    </div>
+
+    <h2 class="text-stone-900 text-xl mb-1">Add to Cart</h2>
+    <p id="modal-product-name" class="text-stone-500 text-sm mb-6"></p>
+
+    <form id="cart-form" method="POST" action="">
+      {% csrf_token %}
+      <div class="mb-6">
+        <label class="block text-stone-600 text-sm font-medium mb-2">Quantity</label>
+        <div class="flex items-center gap-3">
+          <button type="button" onclick="changeQty(-1)" class="w-9 h-9 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-lg flex items-center justify-center transition">−</button>
+          <input id="qty-input" type="number" name="quantity" value="1" min="1" max="99"
+                 class="w-16 text-center bg-stone-100 border border-stone-200 rounded-xl px-2 py-2 text-stone-800 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-400"/>
+          <button type="button" onclick="changeQty(1)" class="w-9 h-9 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-lg flex items-center justify-center transition">+</button>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center bg-stone-50 rounded-xl px-4 py-3 mb-6">
+        <span class="text-stone-500 text-sm">Subtotal</span>
+        <span id="modal-subtotal" class="text-amber-500 font-bold text-lg">$0.00</span>
+      </div>
+
+      <div class="flex gap-3">
+        <button type="button" onclick="closeModal()" class="flex-1 border border-stone-200 text-stone-600 hover:bg-stone-50 font-semibold py-3 rounded-xl transition text-sm">Cancel</button>
+        <button type="submit" class="flex-1 bg-stone-900 hover:bg-amber-500 text-white font-semibold py-3 rounded-xl transition text-sm">Confirm</button>
+      </div>
+    </form>
+  </div>
+</div>

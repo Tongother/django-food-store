@@ -1,0 +1,46 @@
+{% if request.user.credit_card %}
+  <div class="relative w-full max-w-sm mx-auto sm:mx-0 h-48 rounded-2xl shadow-lg overflow-hidden  select-none"
+       style="background: linear-gradient(135deg, #1c1917 0%, #44403c 60%, #292524 100%);">
+
+    <div class="absolute top-6 left-6 w-10 h-7 rounded-md bg-amber-400 opacity-80 flex items-center justify-center">
+      <div class="w-6 h-4 border-2 border-amber-600 rounded-sm opacity-70"></div>
+    </div>
+
+    <div class="absolute top-6 right-6 flex items-center gap-3">
+      <span class="text-amber-400 font-bold text-sm tracking-widest uppercase">
+        {{ request.user.credit_card.card_type }}
+      </span>
+    </div>
+
+    <div class="absolute bottom-14 left-6 right-6">
+      <p id="visual-card-number" class="card-number text-white text-lg tracking-widest font-mono">
+        •••• •••• •••• {{ request.user.credit_card.card_last_four }}
+      </p>
+    </div>
+
+    <div class="absolute bottom-5 left-6 right-6 flex justify-between items-end">
+      <div>
+        <p class="text-stone-500 text-xs uppercase tracking-wide">Cardholder</p>
+        <p class="text-white text-sm font-semibold">{{ request.user.credit_card.cardholder_name }}</p>
+      </div>
+      <div class="text-right">
+        <p class="text-stone-500 text-xs uppercase tracking-wide">Expires</p>
+        <p id="visual-card-exp" class="text-white text-sm font-semibold font-mono">
+          {{ request.user.credit_card.expiration_date }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% else %}
+
+  <div class="bg-white rounded-2xl border border-stone-100 shadow-sm p-10 text-center text-stone-400 max-w-sm mx-auto sm:mx-0">
+    <svg class="w-12 h-12 mx-auto mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+        d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+    </svg>
+    <p class="font-medium text-stone-500">No card registered</p>
+    <p class="text-sm mt-1">This user does not have an associated payment method.</p>
+  </div>
+
+{% endif %}

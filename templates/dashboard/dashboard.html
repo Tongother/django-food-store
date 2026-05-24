@@ -1,0 +1,253 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %} Dashboard - django food store {% endblock %}
+
+{% block content %}
+  <section id="summary">
+    <h2 class="text-stone-800 text-2xl mb-6">Summary</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+
+      <div class="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm flex items-center gap-5">
+        <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
+          <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-stone-400 text-xs uppercase tracking-wide">Users</p>
+          <p class="text-stone-900 text-3xl font-bold">{{ total_users }}</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm flex items-center gap-5">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+          <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zm-9-4h2a2 2 0 012 2v2H7V5a2 2 0 012-2z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-stone-400 text-xs uppercase tracking-wide">Products</p>
+          <p class="text-stone-900 text-3xl font-bold">{{ total_products }}</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 border border-stone-100 shadow-sm flex items-center gap-5">
+        <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
+          <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="text-stone-400 text-xs uppercase tracking-wide">With Card</p>
+          <p class="text-stone-900 text-3xl font-bold">{{ users_with_card }}</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="usuarios">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-stone-800 text-2xl">Users</h2>
+      <span class="text-stone-400 text-sm">{{ total_users }} registered {{ total_users|pluralize }}</span>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-stone-100 bg-stone-50 text-stone-500 text-xs uppercase tracking-wide">
+              <th class="text-left px-6 py-4">User</th>
+              <th class="text-left px-6 py-4">Email</th>
+              <th class="text-left px-6 py-4">Phone</th>
+              <th class="text-left px-6 py-4">Address</th>
+              <th class="text-left px-6 py-4">Registered</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-50">
+            {% for u in users %}
+              <tr class="hover:bg-stone-50 transition">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <span class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-xs uppercase">
+                      {{ u.username|first }}
+                    </span>
+                    <span class="font-medium text-stone-800">{{ u.username }}</span>
+                    {% if u.is_superuser %}
+                      <span class="text-xs bg-amber-100 text-amber-600 px-2 py-0.5 rounded-full">admin</span>
+                    {% endif %}
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-stone-500">{{ u.email|default:"—" }}</td>
+                <td class="px-6 py-4 text-stone-500">{{ u.phone_number|default:"—" }}</td>
+                <td class="px-6 py-4 text-stone-500 max-w-xs truncate">{{ u.direction|default:"—" }}</td>
+                <td class="px-6 py-4 text-stone-400">{{ u.date_joined|date:"d/m/Y" }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="px-6 py-10 text-center text-stone-400">No users registered.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="productos">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-stone-800 text-2xl">Products</h2>
+      <button onclick="document.getElementById('modal-add').classList.remove('hidden')"
+              class="flex items-center gap-2 bg-stone-900 hover:bg-amber-500 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+        </svg>
+        Add Product
+      </button>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-stone-100 bg-stone-50 text-stone-500 text-xs uppercase tracking-wide">
+              <th class="text-left px-6 py-4">Product</th>
+              <th class="text-left px-6 py-4">Price</th>
+              <th class="text-left px-6 py-4">Description</th>
+              <th class="text-left px-6 py-4">Added</th>
+              <th class="text-left px-6 py-4">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-50">
+            {% for product in products %}
+              <tr class="hover:bg-stone-50 transition">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    {% if product.image_url %}
+                      <img src="{{ product.image_url }}" alt="{{ product.name }}"
+                           class="w-9 h-9 rounded-lg object-cover bg-stone-100"
+                           onerror="this.style.display='none'"/>
+                    {% else %}
+                      <div class="w-9 h-9 rounded-lg bg-stone-100 flex items-center justify-center text-stone-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01"/>
+                        </svg>
+                      </div>
+                    {% endif %}
+                    <span class="font-medium text-stone-800">{{ product.name }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4 text-amber-500 font-semibold">${{ product.price }}</td>
+                <td class="px-6 py-4 text-stone-500 max-w-xs truncate">{{ product.description|default:"—" }}</td>
+                <td class="px-6 py-4 text-stone-400">{{ product.created_at|date:"d/m/Y" }}</td>
+                <td class="px-6 py-4">
+                  <form method="POST" action="{% url 'delete_product' product.id %}"
+                        onsubmit="return confirm('¿Eliminar {{ product.name }}?')">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="text-red-400 hover:text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-lg transition text-xs font-medium">
+                      Eliminar
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="px-6 py-10 text-center text-stone-400">No products available. Add one.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>  
+  </section>
+
+  <section id="ordenes">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-stone-800 text-2xl">Recent Orders</h2>
+      <span class="text-stone-400 text-sm">Last {{ recent_orders|length }} completed</span>
+    </div>
+
+    <div class="bg-white rounded-2xl border border-stone-100 shadow-sm overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-stone-100 bg-stone-50 text-stone-500 text-xs uppercase tracking-wide">
+              <th class="text-left px-6 py-4"># Orden</th>
+              <th class="text-left px-6 py-4">Usuario</th>
+              <th class="text-left px-6 py-4">Productos</th>
+              <th class="text-left px-6 py-4">Total</th>
+              <th class="text-left px-6 py-4">Fecha</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-stone-50">
+            {% for order in recent_orders %}
+              <tr class="hover:bg-stone-50 transition align-top">
+                <td class="px-6 py-4 font-medium text-stone-700">#{{ order.id }}</td>
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-xs uppercase shrink-0">
+                      {{ order.user.username|first }}
+                    </span>
+                    <span class="text-stone-700">{{ order.user.username }}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <ul class="space-y-1">
+                    {% for item in order.items.all %}
+                      <li class="flex items-start gap-2">
+                        <span class="text-stone-400 shrink-0">x{{ item.quantity }}</span>
+                        <div>
+                          <p class="text-stone-700 font-medium leading-none">{{ item.product.name }}</p>
+                          {% if item.product.description %}
+                            <p class="text-stone-400 text-xs mt-0.5 line-clamp-1">{{ item.product.description }}</p>
+                          {% endif %}
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  {% if order.shipping_instructions %}
+                    <p class="text-xs text-stone-400 mt-2 pt-2 border-t border-stone-100 italic">
+                      📦 {{ order.shipping_instructions|safe }}
+                    </p>
+                  {% endif %}
+                </td>
+                <td class="px-6 py-4 text-amber-500 font-bold">${{ order.total_price }}</td>
+                <td class="px-6 py-4 text-stone-400">{{ order.created_at|date:"d/m/Y H:i" }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="px-6 py-10 text-center text-stone-400">No completed orders yet.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block extra_modals %}
+  {% include 'components/modal_add_product.html' %}
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    function setActive(el) {
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      el.classList.add('active');
+    }
+    
+    const sections = ['summary','users','products', 'orders'];
+    window.addEventListener('scroll', () => {
+      let current = 'summary';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 120) current = id;
+      });
+      document.querySelectorAll('.sidebar-link').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+      });
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load tailwind_cli %}
+<html lang="es">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{% block title %} django food store {% endblock %}</title>
+    {% tailwind_css %}
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <style>
+      body { font-family: 'DM Sans', sans-serif; background: #f5f5f4; }
+      h1, h2 { font-family: 'DM Serif Display', serif; }
+      .sidebar-link { @apply flex items-center gap-3 px-4 py-3 rounded-xl text-stone-400 hover:bg-stone-800 hover:text-white transition text-sm font-medium; }
+      .sidebar-link.active { @apply bg-amber-400 text-stone-900 font-semibold; }
+    </style>
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body class="min-h-screen flex">
+    {% include 'components/sidebar.html' %}
+    <div class="flex-1 lg:ml-60 flex flex-col min-h-screen">
+      {% include 'components/topbar_mobile.html' %}
+      <main class="p-6 lg:p-10 space-y-12">
+        {% include 'components/messages.html' %}
+        
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+    {% block extra_modals %}{% endblock %}
+
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>

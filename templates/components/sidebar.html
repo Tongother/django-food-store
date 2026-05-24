@@ -1,0 +1,45 @@
+<aside class="hidden lg:flex flex-col w-60 bg-stone-900 min-h-screen p-5 fixed top-0 left-0 bottom-0">
+  <div class="mb-10">
+    <span class="text-amber-400 font-bold tracking-widest uppercase text-base">django food store</span>
+    <p class="text-stone-500 text-xs mt-1">Panel de administración</p>
+  </div>
+
+  <nav class="flex flex-col gap-1 flex-1">
+    <a href="#summary" class="sidebar-link active" onclick="setActive(this)">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 -4a2 2 0 012 -2h2a2 2 0 012 : 87m9 -4a4 : 11-8 :0 :4 :018 :0z"/></svg>
+      Summary
+    </a>
+    <a href="#users" class="sidebar-link" onclick="setActive(this)">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m9-4a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+      Users
+    </a>
+    <a href="#products" class="sidebar-link" onclick="setActive(this)">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zm-9-4h2a2 2 0 012 2v2H7V5a2 2 0 012-2z"/></svg>
+      Products
+    </a>
+    <a href="#orders" class="sidebar-link" onclick="setActive(this)">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+      </svg>
+      Orders
+    </a>
+  </nav>
+
+  <div class="border-t border-stone-800 pt-4 mt-4">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="w-8 h-8 rounded-full bg-amber-400 text-stone-900 font-bold flex items-center justify-center text-sm uppercase">
+        {{ request.user.username|first }}
+      </span>
+      <div>
+        <p class="text-white text-sm font-medium leading-none">{{ request.user.username }}</p>
+        <p class="text-stone-500 text-xs">Administrator</p>
+      </div>
+    </div>
+    <a href="{% url 'logout' %}" class="flex items-center gap-2 text-red-400 hover:text-red-300 text-sm px-1 transition">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1"/>
+      </svg>
+      Logout
+    </a>
+  </div>
+</aside>
