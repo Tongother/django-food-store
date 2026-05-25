@@ -114,11 +114,11 @@ In our application, the product search bar queries the database. As penetration 
 
 - ' ORDER BY N-- => Increment N until the application crashes to determine the column count needed for a UNION query. 
 
-- UNION SELECT name, type, 0, sql, null, null FROM sqlite_master WHERE type='table' -- => Lists all tables. 
+- ' UNION SELECT name, type, 0, sql, null, null FROM sqlite_master WHERE type='table' -- => Lists all tables. 
 
-- UNION SELECT type, name, 0, sql, null, null FROM sqlite_master WHERE type='table' -- => Lists table columns. 
+- ' UNION SELECT type, name, 0, sql, null, null FROM sqlite_master WHERE type='table' -- => Lists table columns. 
 
-- UNION SELECT 0, card_number_secure, 0, 0, 0, 0 FROM users_creditcard -- => Extracts the plain-text card number. (Replace the column name to extract other data).
+- ' UNION SELECT 0, card_number_secure, 0, 0, 0, 0 FROM users_creditcard -- => Extracts the plain-text card number. (Replace the column name to extract other data).
 
 **How to mitigate it:**
 We solve this problem as follows. To prevent SQL Injection, we need to start the search bar in the backend. The command ‘products = Product.objects.filter(name__icontains=query).order_by("-created_at")’ uses Django's ORM, which employs parameterized queries, separating the SQL from the data. The user's input value is never directly concatenated to the query, instead, it is passed as a parameter to the database driver, which always treats it as data and never as an SQL statement. This ensures that any injection attempt is interpreted as plain text. For card encryption, we use the command ‘card_data_to_save = make_password(raw_number)’. It is rather ironic to apply a robust PBKDF2-SHA256 hash to a card number using “make_password” while the system operates over http://localhost without TLS encryption. This implementation serves only as a conceptual demonstration of the importance of not storing data in plain text. In a real production environment, this level of backend hashing is unnecessary, as the industry standard dictates that the interface sends the information directly to payment gateways, which handle tokenization, ensuring that the original number never passes through or needs to be processed by our server.
