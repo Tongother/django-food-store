@@ -93,8 +93,6 @@ python manage.py tailwind runserver
 
 ### A01 — Broken Access Control
 
-**Where to find it:** `...`
-
 **What it does:**
 The first vulnerability we have is A01:2021 – Broken Access Control. This vulnerability is based on a user with limited privileges accessing information that, in theory, should not be available to them due to their role limitations. 
 
@@ -106,8 +104,6 @@ This flaw was caused by a lack of user validation. We can see that in "order = g
 ---
 
 ### A02 — Cryptographic Failures
-
-**Where to find it:** `...`
 
 **What it does:**
 We move on to A02:2021 – Cryptographic Failures. While demonstrated via an SQL Injection (SQLi), the focus here is the exposure of sensitive data transmitted or stored without adequate encryption. 
@@ -131,8 +127,6 @@ We solve this problem as follows. To prevent SQL Injection, we need to start the
 
 ### A03 — Injection
 
-**Where to find it:** `...`
-
 **What it does:**
 We will now discuss A03:2021 – Injection. This vulnerability is based on the entry of unsanitized malicious code into the application, allowing the execution of commands that compromise the confidentiality and integrity of the data. In this case, I will demonstrate that User-supplied data is not validated, filtered, or sanitized by the application. 
 
@@ -155,7 +149,6 @@ This is resolved by limiting the interaction of cookies with JavaScript. This al
 
 ### A04 — Insecure Design
 
-**Where to find it:** `...`  
 **What it does:**
 We will now discuss A04:2021 – Insecure Design. Based on its definition, this refers to an insecure system that, from its inception, did not plan any type of defense to protect the application from threat agents; architecturally, security was never considered regarding the application's functionality. The flaw I will demonstrate involves the shopping cart. The design never considered anything outside the standard cycle of adding a product, removing it, and buying it. Now, let's try adding 3 “tlayudas con tasajo” to the cart because we are very hungry. Building on this, we will attempt to get a "discount" authorized by ourselves. If we analyze the network traffic when adding a product to the cart, we can spot our target parameter and endpoint. Knowing that "quantity" represents the amount the server expects, we will modify it before sending the data. Since the HTML input doesn't allow this, we will use an HTTP Client like "Postman", although you can use any client of your choice. 
 
@@ -169,8 +162,6 @@ To fix this, we need to define exactly what data our system requires to function
 ---
 
 ### A05 — Security Misconfiguration
-
-**Where to find it:** `...`  
 
 **What it does:**
 To conclude, we will address the A05:2021 – Security Misconfiguration vulnerability. This security breach stems from the absence of appropriate security configurations or the retention of unnecessary diagnostic features within the application's environment. Although its exploitation is straightforward, its impact is critical, as it exposes sensitive information regarding the system's internal architecture. 
