@@ -16,6 +16,7 @@ To run django food store, you will need to have installed:
 
 - Python (latest version recommended)
 - Pip
+- Postman
 ### Create the virtual environment
 
 ```bash
